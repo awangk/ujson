@@ -640,6 +640,10 @@ double parser::read_double() const {
     auto token = reinterpret_cast<const char *>(m_token);
     double result = s2dc.StringToDouble(token, len, &processed_chars);
 
+    // handle invalid number
+    if (processed_chars != len)
+        throw ujson::exception(ujson::error_code::bad_number, line());
+
     // handle overflow
     if (!std::isfinite(result))
         throw ujson::exception(ujson::error_code::bad_number, line());

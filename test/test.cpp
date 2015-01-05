@@ -245,6 +245,10 @@ TEST_CASE("number") {
     REQUIRE(parse("3.23e+3") == 3.23e+3);
     REQUIRE(parse("3.23E+3") == 3.23e+3);
 
+    // invalid numbers (thanks codestation)
+    REQUIRE_THROWS(parse("1k2"));
+    REQUIRE_THROWS(parse("1k2  "));
+
     // overflow
     REQUIRE_THROWS(parse("1.8e+308"));
 }
