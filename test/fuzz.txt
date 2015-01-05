@@ -1,0 +1,8 @@
+Fuzzing with american fuzzy lop
+-------------------------------
+
+ujson can be fuzzed with 'afl' (see http://lcamtuf.coredump.cx/afl). A simple driver program, 'ujson_fuzz', is included, which simply reads JSON from stdin and parses it. A folder with a few test cases is also included.
+
+The simplest way to invoke 'afl' is:
+
+>afl-fuzz -i ../path-to-testcases-dir -o findings-dir test/ujson_fuzz
