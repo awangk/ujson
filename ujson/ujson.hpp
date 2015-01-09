@@ -506,8 +506,8 @@ inline value::value(value const &rhs) noexcept {
 }
 
 inline value::value(value &&rhs) noexcept {
-    rhs.impl()->clone(m_storage);
-    rhs = null;
+    std::memcpy(m_storage, rhs.m_storage, storage_size);
+    new (rhs.m_storage)null_impl_t{};
 }
 
 template <typename T>
@@ -668,8 +668,9 @@ inline value &value::operator=(value const &rhs) noexcept{
 }
 
 inline value &value::operator=(value &&rhs) noexcept {
-    *this = rhs;
-    rhs = null;
+    destroy();
+    std::memcpy(m_storage, rhs.m_storage, storage_size);
+    new (rhs.m_storage)null_impl_t{};
     return *this;
 }
 
