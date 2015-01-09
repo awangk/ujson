@@ -28,19 +28,32 @@
 int main(int argc, const char *argv[]) {
     try {
 
-        if (argc != 1) {
-            std::printf("ujson_fuzz < filename.json\n");
+        std::FILE *file = nullptr;
+        if (argc == 1) {
+            file = stdin;     
+        } else if (argc == 2) {
+            file = std::fopen(argv[1], "rb");
+            if (!file) {
+                std::printf("unable to open '%s'\n", argv[1]);
+                return EXIT_FAILURE;
+            }
+        }
+        else {
+            std::printf("ujson_fuzz {<} filename.json\n");
             return EXIT_FAILURE;
         }
 
         std::string json;
         for (;;) {
             char buf[64];
-            auto read = std::fread(buf, 1, sizeof(buf), stdin);
+            auto read = std::fread(buf, 1, sizeof(buf), file);
             json.append(buf, buf + read);
-            if (std::feof(stdin))
+            if (std::feof(file))
                 break;
         }
+
+        if (file != stdin)
+            std::fclose(file);
 
         ujson::parse(json);
         return EXIT_SUCCESS;
