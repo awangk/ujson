@@ -100,6 +100,7 @@ TEST_CASE("null") {
     using namespace ujson;
 
     value null0;
+    REQUIRE(null0.is_null());
     REQUIRE(null0.type() == value_type::null);
     value null1(1);
     null1 = value();
@@ -117,6 +118,7 @@ TEST_CASE("boolean") {
     using namespace ujson;
 
     value bool0(true);
+    REQUIRE(bool0.is_boolean());
     REQUIRE(bool0.type() == value_type::boolean);
     REQUIRE(bool_cast(bool0) == true);
     bool0 = false;
@@ -141,6 +143,7 @@ TEST_CASE("number") {
 
     // ints
     value int0(std::numeric_limits<std::int32_t>::min());
+    REQUIRE(int0.is_number());
     REQUIRE(int0.type() == value_type::number);
     REQUIRE(int32_cast(int0) == std::numeric_limits<std::int32_t>::min());
     value int1;
@@ -283,6 +286,8 @@ TEST_CASE("string") {
     const char *hello = "Hello, world!";
     REQUIRE(string_cast(hello) == hello);
     value hello_value(hello);
+    REQUIRE(hello_value.is_string());
+    REQUIRE(hello_value.type() == value_type::string);
     REQUIRE(string_cast(value(hello)) == hello);
     REQUIRE(std::strcmp(string_cast(hello_value).c_str(), hello) == 0);
 
@@ -325,6 +330,14 @@ TEST_CASE("string") {
 
     // test empty string
     REQUIRE(string_cast("").length() == 0);
+
+    // assignment
+    ujson::value assigned;
+    std::string tmp("test");
+    assigned = tmp;
+    REQUIRE(assigned == tmp);
+    tmp = "\xFF";
+    REQUIRE_THROWS(assigned = tmp);
 
     // string with embedded zeros
     const char *zeros = "\0foo\0bar\0";
@@ -475,6 +488,7 @@ TEST_CASE("array") {
 
     // copy construct
     value array0(a0);
+    REQUIRE(array0.is_array());
     REQUIRE(array0.type() == value_type::array);
     REQUIRE(array_cast(array0) == a0);
 
@@ -508,6 +522,8 @@ TEST_CASE("array") {
         (foos == array{ object{ { "bar", "M_PI" }, { "baz", M_PI } },
                         object{ { "bar", "M_LN2" }, { "baz", M_LN2 } } }));
 #endif
+
+    parse("\"[1,2,3]\"");
 }
 
 TEST_CASE("object") {
@@ -534,6 +550,7 @@ TEST_CASE("object") {
 
     // copy construct
     value object0(o0);
+    REQUIRE(object0.is_object());
     REQUIRE(object0.type() == value_type::object);
     std::stable_sort(o0.begin(), o0.end());
     REQUIRE(object_cast(object0) == o0);
@@ -574,6 +591,21 @@ TEST_CASE("object") {
                      { "foo2",
                        object{ { "bar", "M_LN2" }, { "baz", M_LN2 } } } }));
 #endif
+}
+
+TEST_CASE("misc") {
+
+    using namespace ujson;
+
+    // swap
+    value a(42), b("foo");
+    swap(a, b);
+    REQUIRE(a == "foo");
+    REQUIRE(b == 42);
+
+    // equality
+    REQUIRE(a == "foo");
+    REQUIRE(b != "foo");
 }
 
 // ---------------------------------------------------------------------------

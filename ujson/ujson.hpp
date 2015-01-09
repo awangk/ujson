@@ -79,10 +79,10 @@ public:
     // construct double value; throws if not finite
     value(double d);
 
-    // construct 32bit signed int value
+    // construct 32 bit signed int value
     value(std::int32_t d) noexcept;
 
-    // construct 32bit unsigned int value
+    // construct 32 bit unsigned int value
     value(std::uint32_t d) noexcept;
 
     // construct string value; throws if invalid utf-8
@@ -159,6 +159,8 @@ public:
 
     void swap(value &other) noexcept;
 
+private:
+
     friend bool operator==(const value &lhs, const value &rhs);
     friend bool operator!=(const value &lhs, const value &rhs);
 
@@ -210,7 +212,6 @@ public:
     // contained object or copy if shared (moved from value will be null)
     friend object object_cast(value &&v);
 
-private:
     struct impl_t {
         virtual ~impl_t() = 0;
         virtual value_type type() const noexcept = 0;
