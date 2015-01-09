@@ -832,7 +832,7 @@ ujson6:
     yyaccept = 0;
     yych = *(marker = ++m_cursor);
     switch (yych) {
-    case 'u':    goto ujson95;
+    case 'u':    goto ujson91;
     default:    goto ujson7;
     }
 ujson7:
@@ -843,14 +843,14 @@ ujson8:
     yyaccept = 0;
     yych = *(marker = ++m_cursor);
     switch (yych) {
-    case 'r':    goto ujson91;
+    case 'r':    goto ujson87;
     default:    goto ujson7;
     }
 ujson9:
     yyaccept = 0;
     yych = *(marker = ++m_cursor);
     switch (yych) {
-    case 'a':    goto ujson86;
+    case 'a':    goto ujson82;
     default:    goto ujson7;
     }
 ujson10:
@@ -868,7 +868,7 @@ ujson16:
 ujson18:
     yych = *++m_cursor;
     switch (yych) {
-    case '0':    goto ujson84;
+    case '0':    goto ujson81;
     case '1':
     case '2':
     case '3':
@@ -877,17 +877,17 @@ ujson18:
     case '6':
     case '7':
     case '8':
-    case '9':    goto ujson85;
+    case '9':    goto ujson72;
     default:    goto ujson7;
     }
 ujson19:
     yyaccept = 1;
     yych = *(marker = ++m_cursor);
     switch (yych) {
-    case '\n':    goto ujson20;
+    case '.':    goto ujson74;
     case 'E':
     case 'e':    goto ujson75;
-    default:    goto ujson74;
+    default:    goto ujson20;
     }
 ujson20:
     { return ujson_number; }
@@ -2806,7 +2806,7 @@ ujson72:
     yych = *m_cursor;
 ujson73:
     switch (yych) {
-    case '\n':    goto ujson20;
+    case '.':    goto ujson74;
     case '0':
     case '1':
     case '2':
@@ -2819,7 +2819,7 @@ ujson73:
     case '9':    goto ujson72;
     case 'E':
     case 'e':    goto ujson75;
-    default:    goto ujson74;
+    default:    goto ujson20;
     }
 ujson74:
     yych = *++m_cursor;
@@ -2833,7 +2833,7 @@ ujson74:
     case '6':
     case '7':
     case '8':
-    case '9':    goto ujson82;
+    case '9':    goto ujson79;
     default:    goto ujson32;
     }
 ujson75:
@@ -2865,12 +2865,11 @@ ujson76:
     case '6':
     case '7':
     case '8':
-    case '9':    goto ujson80;
+    case '9':    goto ujson77;
     default:    goto ujson32;
     }
 ujson77:
-    yyaccept = 1;
-    marker = ++m_cursor;
+    ++m_cursor;
     yych = *m_cursor;
     switch (yych) {
     case '0':
@@ -2883,44 +2882,9 @@ ujson77:
     case '7':
     case '8':
     case '9':    goto ujson77;
-    case 'E':
-    case 'e':    goto ujson79;
     default:    goto ujson20;
     }
 ujson79:
-    yych = *++m_cursor;
-    switch (yych) {
-    case '+':
-    case '-':    goto ujson76;
-    case '0':
-    case '1':
-    case '2':
-    case '3':
-    case '4':
-    case '5':
-    case '6':
-    case '7':
-    case '8':
-    case '9':    goto ujson80;
-    default:    goto ujson32;
-    }
-ujson80:
-    ++m_cursor;
-    yych = *m_cursor;
-    switch (yych) {
-    case '0':
-    case '1':
-    case '2':
-    case '3':
-    case '4':
-    case '5':
-    case '6':
-    case '7':
-    case '8':
-    case '9':    goto ujson80;
-    default:    goto ujson20;
-    }
-ujson82:
     yyaccept = 1;
     marker = ++m_cursor;
     yych = *m_cursor;
@@ -2934,34 +2898,45 @@ ujson82:
     case '6':
     case '7':
     case '8':
-    case '9':    goto ujson82;
-    case 'E':
-    case 'e':    goto ujson79;
-    default:    goto ujson20;
-    }
-ujson84:
-    yyaccept = 1;
-    yych = *(marker = ++m_cursor);
-    switch (yych) {
-    case '\n':    goto ujson20;
+    case '9':    goto ujson79;
     case 'E':
     case 'e':    goto ujson75;
-    default:    goto ujson74;
+    default:    goto ujson20;
     }
-ujson85:
+ujson81:
     yyaccept = 1;
     yych = *(marker = ++m_cursor);
-    goto ujson73;
-ujson86:
+    switch (yych) {
+    case '.':    goto ujson74;
+    case 'E':
+    case 'e':    goto ujson75;
+    default:    goto ujson20;
+    }
+ujson82:
     yych = *++m_cursor;
     switch (yych) {
-    case 'l':    goto ujson87;
+    case 'l':    goto ujson83;
     default:    goto ujson32;
     }
+ujson83:
+    yych = *++m_cursor;
+    switch (yych) {
+    case 's':    goto ujson84;
+    default:    goto ujson32;
+    }
+ujson84:
+    yych = *++m_cursor;
+    switch (yych) {
+    case 'e':    goto ujson85;
+    default:    goto ujson32;
+    }
+ujson85:
+    ++m_cursor;
+    { return ujson_false; }
 ujson87:
     yych = *++m_cursor;
     switch (yych) {
-    case 's':    goto ujson88;
+    case 'u':    goto ujson88;
     default:    goto ujson32;
     }
 ujson88:
@@ -2972,35 +2947,20 @@ ujson88:
     }
 ujson89:
     ++m_cursor;
-    { return ujson_false; }
+    { return ujson_true; }
 ujson91:
     yych = *++m_cursor;
     switch (yych) {
-    case 'u':    goto ujson92;
+    case 'l':    goto ujson92;
     default:    goto ujson32;
     }
 ujson92:
     yych = *++m_cursor;
     switch (yych) {
-    case 'e':    goto ujson93;
+    case 'l':    goto ujson93;
     default:    goto ujson32;
     }
 ujson93:
-    ++m_cursor;
-    { return ujson_true; }
-ujson95:
-    yych = *++m_cursor;
-    switch (yych) {
-    case 'l':    goto ujson96;
-    default:    goto ujson32;
-    }
-ujson96:
-    yych = *++m_cursor;
-    switch (yych) {
-    case 'l':    goto ujson97;
-    default:    goto ujson32;
-    }
-ujson97:
     ++m_cursor;
     { return ujson_null; }
 }

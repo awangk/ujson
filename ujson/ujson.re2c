@@ -814,7 +814,7 @@ std:
       digit = [0-9];
       exponent = [Ee];
 
-      minus? (zero | pdigit digit*) ( . digit+ )? (exponent sign? digit+)?
+      minus? (zero | pdigit digit*) ( [\x2E] digit+ )? (exponent sign? digit+)?
           { return ujson_number; }
 
       escape = [\\];
