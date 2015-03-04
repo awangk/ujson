@@ -27,6 +27,8 @@ add_library(ujson STATIC
     ../LICENSE-3RD-PARTY.md
 )
 
+set_target_properties(ujson PROPERTIES FOLDER "ujson")
+
 source_group(DoubleConversion FILES ${DOUBLE_CONVERSION_SRC})
 
 if (MSVC)

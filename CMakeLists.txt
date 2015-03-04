@@ -5,6 +5,8 @@ cmake_minimum_required(VERSION 2.8)
 project(ujson)
 enable_testing()
 
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
 # enable c++11 on xcode
 if (CMAKE_GENERATOR STREQUAL Xcode)
   set(CMAKE_XCODE_ATTRIBUTE_CLANG_CXX_LANGUAGE_STANDARD "c++11")
@@ -52,6 +54,8 @@ elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
   add_dependencies(re2c re2c_external_ujson)
 
 endif()
+
+set_target_properties(re2c_external_ujson PROPERTIES FOLDER "ujson")
 
 add_subdirectory(ujson)
 add_subdirectory(test)
