@@ -38,7 +38,7 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
   set_target_properties(re2c PROPERTIES IMPORTED_LOCATION ${SOURCE_DIR}/re2c)
   add_dependencies(re2c re2c_external_ujson)
 
-elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+else ()
 
   externalproject_add(re2c_external_ujson
     URL ${RE2C_URL}/0.13.5/re2c-0.13.5.tar.gz
