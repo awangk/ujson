@@ -830,7 +830,7 @@ std:
       hex_control = hex_control1 | hex_control2 | hex_control3 |
         (hex_control4 hex_control5);
 
-      esc_control = escape (escape | [\"] | [b] | [f] | [n] | [r] | [t] );
+      esc_control = escape (escape | [\"] | [/] | [b] | [f] | [n] | [r] | [t] );
 
       bytes1 =  [\x20-\x7F] \ ([\"] | [\\]);
 

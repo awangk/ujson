@@ -86,12 +86,12 @@ static char *utf32_to_utf8(char *str, std::uint32_t cp) {
 }
 
 TEST_CASE("info") {
-    std::printf("sizeof(ujson::value) = %lu bytes\n", sizeof(ujson::value));
-    std::printf("sizeof(std::string) = %lu bytes\n", sizeof(std::string));
+    std::printf("sizeof(ujson::value) = %zu bytes\n", sizeof(ujson::value));
+    std::printf("sizeof(std::string) = %zu bytes\n", sizeof(std::string));
 #ifdef UJSON_SHORT_STRING_OPTIMIZATION
     std::printf("short string max length = %u bytes\n", ujson::sso_max_length);
 #endif
-    std::printf("sizeof(std::shared_ptr<>) = %lu bytes\n",
+    std::printf("sizeof(std::shared_ptr<>) = %zu bytes\n",
                 sizeof(std::shared_ptr<int>));
 }
 
@@ -372,8 +372,12 @@ TEST_CASE("string") {
     // premature end of string
     REQUIRE_THROWS(parse("\"Hello, wor"));
 
-    // examples from RFC-3629
     auto quote = [](const char *p) { return std::string("\"") + p + '"'; };
+
+	// https://bitbucket.org/awangk/ujson/issues/1/conformance-report-for-reference
+	REQUIRE(parse(quote("\\/")) == "/");
+
+	// examples from RFC-3629
 
     // A<NOT IDENTICAL TO><ALPHA> (U+0041 U+2262 U+0391 U+002E)
     const char *example = "\x41\xE2\x89\xA2\xCE\x91\x2E";

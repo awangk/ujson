@@ -1236,6 +1236,7 @@ ujson33:
     yych = *m_cursor;
     switch (yych) {
     case '"':
+    case '/':
     case '\\':
     case 'b':
     case 'f':

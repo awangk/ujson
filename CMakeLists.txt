@@ -22,12 +22,12 @@ endif()
 # fetch re2c
 include(ExternalProject)
 
-set(RE2C_URL http://downloads.sourceforge.net/project/re2c/re2c)
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 
+  set(RE2C_URL http://downloads.sourceforge.net/project/re2c/old)
   externalproject_add(re2c_external_ujson
-    URL ${RE2C_URL}/0.13.5/re2c-0.13.5-bin.zip
+    URL ${RE2C_URL}/re2c-0.13.5-bin.zip
     URL_MD5 7bb567b054d5cdacc7c5864ab25d2de4
     CONFIGURE_COMMAND ""
     BUILD_COMMAND ""
@@ -40,6 +40,7 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 
 else ()
 
+  set(RE2C_URL http://downloads.sourceforge.net/project/re2c/re2c)
   externalproject_add(re2c_external_ujson
     URL ${RE2C_URL}/0.13.5/re2c-0.13.5.tar.gz
     URL_MD5 4a97d8f77ed6d2c76c8bd840a43f5633
