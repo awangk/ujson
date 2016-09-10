@@ -361,7 +361,7 @@ static void to_string(std::string &str, double v) {
     StringBuilder builder(buffer, buffer_size);
 
     auto flags = DoubleToStringConverter::NO_FLAGS;
-    DoubleToStringConverter d2sc(flags, nullptr, nullptr, 'e', -6, 6, 0, 0);
+    DoubleToStringConverter d2sc(flags, nullptr, nullptr, 'e', -10, 10, 0, 0);
 #ifdef NDEBUG
     d2sc.ToShortest(v, &builder);
 #else
