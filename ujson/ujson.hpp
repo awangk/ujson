@@ -721,10 +721,13 @@ inline void swap(value &lhs, value &rhs) noexcept { lhs.swap(rhs); }
 
 inline bool operator==(const value &lhs, const value &rhs) {
 
-    if (typeid(*lhs.impl()) != typeid(*rhs.impl()))
+    auto lhs_impl = lhs.impl();
+    auto rhs_impl = rhs.impl();
+
+    if (typeid(*lhs_impl) != typeid(*rhs_impl))
         return false;
 
-    return lhs.impl()->equals(rhs.impl());
+    return lhs_impl->equals(rhs_impl);
 }
 
 inline bool operator!=(const value &lhs, const value &rhs) {
