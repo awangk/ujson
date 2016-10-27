@@ -40,9 +40,9 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 
 else ()
 
-  set(RE2C_URL http://downloads.sourceforge.net/project/re2c/re2c)
+  set(RE2C_URL http://downloads.sourceforge.net/project/re2c/old)
   externalproject_add(re2c_external_ujson
-    URL ${RE2C_URL}/0.13.5/re2c-0.13.5.tar.gz
+    URL ${RE2C_URL}/re2c-0.13.5.tar.gz
     URL_MD5 4a97d8f77ed6d2c76c8bd840a43f5633
     CONFIGURE_COMMAND <SOURCE_DIR>/configure --prefix=<INSTALL_DIR>
     BUILD_COMMAND make

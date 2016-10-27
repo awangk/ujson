@@ -46,7 +46,12 @@ enum { sso_max_length = 10 }; // 10 bytes on 32 bit
 #define UJSON_SHORT_STRING_OPTIMIZATION // msvc + dinkumware stl
 enum { sso_max_length = 15 }; // 15 bytes on both 32/64 bit
 #elif defined __GLIBCXX__
+#ifdef _GLIBCXX_USE_CXX11_ABI
+#define UJSON_SHORT_STRING_OPTIMIZATION // libstdc++ on gcc 5+
+enum { sso_max_length = 15 }; // 15 bytes on both 32/64 bit
+#else
 #define UJSON_REF_COUNTED_STRING // libstdc++
+#endif
 #else
 #error Unrecognized STL library.
 #endif
